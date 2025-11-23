@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: case-service
+    version: 0.0.1-SNAPSHOT
+    group: case-service
+  main:
+    banner-mode: off
+  threads:
+    virtual:
+      enabled: true
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/libak
+          jwk-set-uri: http://localhost:8080/realms/libak/protocol/openid-connect/certs
+
+server:
+  port: 8181
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+
+logging:
+  level:
+    no.libak.caseservice: debug
+  structured:
+    format:
+      console: ecs
+    ecs:
+      service:
+        environment: localhost
+        node-name: localhost
